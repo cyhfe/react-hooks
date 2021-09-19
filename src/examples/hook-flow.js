@@ -124,35 +124,37 @@ import * as React from 'react'
 //   return element
 // }
 
-const Context = React.createContext(null)
+// const Context = React.createContext(null)
 
-const Provider = () => {
-  console.log('provider render')
-  let value = 0
-  return (
-    <Context.Provider value={value}>
-      <button onClick={()=>{
-        console.log(value)
-        value++
-      }}>click</button>
-      <App />
-    </Context.Provider>
-  )
-}
+// const Provider = () => {
+//   console.log('provider render')
+//   let value = 0
+//   return (
+//     <Context.Provider value={value}>
+//       <button onClick={()=>{
+//         console.log(value)
+//         value++
+//       }}>click</button>
+//       <App />
+//     </Context.Provider>
+//   )
+// }
 
 const App = () => {
-  console.log('app render')
-  const [count, setCount ] = React.useState(0)
-  React.useEffect(()=>{
-    const timerId = setInterval(()=>{
-      setCount(count + 1)
-    }, 1000)
+  const [val, setVal] = React.useState(0)
+  React.useEffect(() => {
+    const timerId = setTimeout(() => {
+      setVal(val + 1)
+    }, 1000);
     return () => {
-      clearInterval(timerId)
+      clearTimeout(timerId)
     }
   })
-  let value = React.useContext(Context)
-  return <div>{value}</div>
+  return <div>{val}</div>
 }
 
-export default Provider
+function Child(){
+  console.log('render child')
+  return <h1>haha</h1>
+}
+export default App
